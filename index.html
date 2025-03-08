@@ -21,24 +21,32 @@
     <a href="#">Contact Us</a>
 </nav>
 
+<section class="slideshow-container">
+    <div class="slides">
+        <img src="images/concert1.jpg" alt="Concert 1">
+    </div>
+    <div class="slides">
+        <img src="images/concert2.jpg" alt="Concert 2">
+    </div>
+    <div class="slides">
+        <img src="images/concert3.jpg" alt="Concert 3">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</section>
+
 <section>
     <h2>Upcoming Events</h2>
-    <div class="events">
-        <h3>Spring Concert</h3>
-        <p>Date: April 15, 2025</p>
-        <p>Location: School Auditorium</p>
-    </div>
-    <div class="events">
-        <h3>Jazz Band Showcase</h3>
-        <p>Date: May 10, 2025</p>
-        <p>Location: Community Center</p>
-    </div>
+    <div id="events-container"></div>
 </section>
 
 <footer>
     <p>Contact us at: musicdepartment@schoolname.edu</p>
     <p>&copy; 2025 High School Music Department</p>
 </footer>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
