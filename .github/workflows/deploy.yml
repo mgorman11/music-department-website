@@ -17,10 +17,12 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
-          sed -i "s|__API_KEY__|$API_KEY|g" js/script.js
+          mkdir -p dist/js
+          cp -r * dist/
+          sed -i "s|__API_KEY__|$API_KEY|g" dist/js/script.js
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: .
+          folder: dist
