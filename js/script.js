@@ -1,6 +1,9 @@
 const sheetId = '1Y9CXKU_kDafCxBK8vjMYfA5h_U5vt9REuzHQXN2RRxQ'; // Your Sheet ID
 const sheetName = 'Sheet1';
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${process.env.API_KEY}`;
+
+// The API Key will be injected by GitHub Actions
+const apiKey = '__API_KEY__';
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
 
 // Function to load events from Google Sheets
 async function loadEvents() {
@@ -102,4 +105,5 @@ document.querySelectorAll('nav a').forEach(link => {
         alert('Navigation functionality can be added here');
     });
 });
+
 
