@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Department</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/homepage.css">
 </head>
 <body>
 
 <header>
-    <h1>Welcome to the High School Music Department</h1>
-    <p>Inspiring students through the power of music</p>
+    <h1>Welcome to Our Music Department</h1>
 </header>
 
 <nav>
-    <a href="#">Home</a>
-    <a href="#">Concerts</a>
-    <a href="#">Calendar</a>
-    <a href="#">Staff</a>
-    <a href="#">Contact Us</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="events.html">Events</a>
+    <a href="contact.html">Contact</a>
 </nav>
 
 <section class="slideshow-container">
-    <div class="slides">
+    <div class="slides" style="display: block;">
         <img src="images/concert1.jpg" alt="Concert 1">
     </div>
     <div class="slides">
@@ -33,8 +30,8 @@
         <img src="images/concert3.jpg" alt="Concert 3">
     </div>
 
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+    <button class="next" onclick="plusSlides(1)">&#10095;</button>
 </section>
 
 <section>
@@ -42,13 +39,15 @@
     <div id="events-container"></div>
 </section>
 
+<section>
+    <h2>Past Events</h2>
+    <div id="past-events-container"></div>
+</section>
+
 <footer>
-    <p>Contact us at: musicdepartment@schoolname.edu</p>
-    <p>&copy; 2025 High School Music Department</p>
+    <p>&copy; 2025 Music Department. All Rights Reserved.</p>
 </footer>
 
 <script src="js/script.js"></script>
-
 </body>
 </html>
-
