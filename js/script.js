@@ -13,13 +13,26 @@ async function loadEvents() {
         container.innerHTML = '';
 
         rows.forEach(row => {
+            const eventName = row[0] || '';
+            const eventDate = row[1] || '';
+            const eventTime = row[2] || '';
+            const eventLocation = row[3] || '';
+            const eventDescription = row[4] || '';
+            const eventLink = row[5] || '';
+
+            // Create event card
             const eventDiv = document.createElement('div');
             eventDiv.className = 'events';
-            eventDiv.innerHTML = `
-                <h3>${row[0]}</h3>
-                <p>Date: ${row[1]}</p>
-                <p>Location: ${row[2]}</p>
-            `;
+
+            // Dynamically build the HTML, excluding empty fields
+            let eventHTML = `<h3>${eventName}</h3>`;
+            if (eventDate) eventHTML += `<p><strong>Date:</strong> ${eventDate}</p>`;
+            if (eventTime) eventHTML += `<p><strong>Time:</strong> ${eventTime}</p>`;
+            if (eventLocation) eventHTML += `<p><strong>Location:</strong> ${eventLocation}</p>`;
+            if (eventDescription) eventHTML += `<p>${eventDescription}</p>`;
+            if (eventLink) eventHTML += `<a href="${eventLink}" target="_blank" class="event-link">Get Tickets</a>`;
+
+            eventDiv.innerHTML = eventHTML;
             container.appendChild(eventDiv);
         });
     } catch (error) {
@@ -51,7 +64,7 @@ function showSlides() {
 setInterval(() => {
     slideIndex++;
     showSlides();
-}, 5000); // Auto slide every 5 seconds
+}, 5000);
 
 // Navigation functionality (if needed for future features)
 document.querySelectorAll('nav a').forEach(link => {
