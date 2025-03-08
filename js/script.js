@@ -10,7 +10,13 @@ async function loadEvents() {
 
         const rows = data.values.slice(1); // Skip header row
         const container = document.getElementById('events-container');
+        const pastContainer = document.getElementById('past-events-container');
         container.innerHTML = '';
+        pastContainer.innerHTML = '';
+
+        const today = new Date();
+        const upcomingEvents = [];
+        const pastEvents = [];
 
         rows.forEach(row => {
             const eventName = row[0] || '';
@@ -20,7 +26,10 @@ async function loadEvents() {
             const eventDescription = row[4] || '';
             const eventLink = row[5] || '';
 
-            // Create event card
+            // Convert eventDate to JavaScript Date object
+            const eventDateObj = new Date(eventDate);
+
+            // Sort events into upcoming or past
             const eventDiv = document.createElement('div');
             eventDiv.className = 'events';
 
@@ -30,11 +39,31 @@ async function loadEvents() {
             if (eventTime) eventHTML += `<p><strong>Time:</strong> ${eventTime}</p>`;
             if (eventLocation) eventHTML += `<p><strong>Location:</strong> ${eventLocation}</p>`;
             if (eventDescription) eventHTML += `<p>${eventDescription}</p>`;
-            if (eventLink) eventHTML += `<a href="${eventLink}" target="_blank" class="event-link">Get Tickets</a>`;
+            if (eventLink) {
+                if (eventLink.includes('livestream')) {
+                    eventHTML += `<a href="${eventLink}" target="_blank" class="event-link">Watch Livestream</a>`;
+                } else {
+                    eventHTML += `<a href="${eventLink}" target="_blank" class="event-link">Get Tickets</a>`;
+                }
+            }
 
             eventDiv.innerHTML = eventHTML;
-            container.appendChild(eventDiv);
+
+            if (eventDateObj >= today) {
+                upcomingEvents.push({ date: eventDateObj, element: eventDiv });
+            } else {
+                pastEvents.push({ date: eventDateObj, element: eventDiv });
+            }
         });
+
+        // Sort upcoming events by date
+        upcomingEvents.sort((a, b) => a.date - b.date);
+        pastEvents.sort((a, b) => b.date - a.date);
+
+        // Append to respective containers
+        upcomingEvents.forEach(event => container.appendChild(event.element));
+        pastEvents.forEach(event => pastContainer.appendChild(event.element));
+
     } catch (error) {
         console.error('Error loading events:', error);
     }
@@ -73,3 +102,4 @@ document.querySelectorAll('nav a').forEach(link => {
         alert('Navigation functionality can be added here');
     });
 });
+
