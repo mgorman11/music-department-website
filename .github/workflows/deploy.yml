@@ -13,12 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Inject API Key at Runtime (Without Writing to File)
+      - name: Inject Service Account Key at Runtime (Without Writing to File)
         env:
-          API_KEY: ${{ secrets.API_KEY }}
+          SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
         run: |
           mkdir -p dist/js
-          echo "window.API_KEY = '${{ secrets.API_KEY }}';" > dist/js/config.js
+          echo "window.SERVICE_ACCOUNT_KEY = '${{ secrets.SERVICE_ACCOUNT_KEY }}';" > dist/js/config.js
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
