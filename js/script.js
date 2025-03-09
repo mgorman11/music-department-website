@@ -2,7 +2,7 @@ const sheetId = '1Y9CXKU_kDafCxBK8vjMYfA5h_U5vt9REuzHQXN2RRxQ'; // Your Sheet ID
 const sheetName = 'Sheet1';
 
 // The API Key will be injected by GitHub Actions
-const apiKey = 'AIzaSyA4hin3XxclalWt0j-p-_GIth93dnI_OCY';
+const apiKey = '__API_KEY__';
 const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
 
 // Function to load events from Google Sheets
