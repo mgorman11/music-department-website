@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pagesname: Deploy to GitHub Pages
 
 on:
   push:
@@ -13,15 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Google Auth and Generate Access Token
+      - name: Inject API Key at Runtime (Without Writing to File)
         env:
-          SERVICE_ACCOUNT_KEY: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          echo "$SERVICE_ACCOUNT_KEY" > service-account-key.json
-          gcloud auth activate-service-account --key-file=service-account-key.json
-          ACCESS_TOKEN=$(gcloud auth print-access-token)
           mkdir -p dist/js
-          echo "window.ACCESS_TOKEN = '${ACCESS_TOKEN}';" > dist/js/config.js
+          echo "window.API_KEY = '${{ secrets.API_KEY }}';" > dist/js/config.js
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
