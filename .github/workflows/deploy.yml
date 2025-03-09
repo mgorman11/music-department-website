@@ -23,6 +23,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Create JS folder and config file if they don't exist
+        run: |
+          mkdir -p js
+          touch js/config.js
+
       - name: Inject API Key at Runtime
         env:
           API_KEY: ${{ secrets.API_KEY }}
@@ -36,3 +41,4 @@ jobs:
           git add js/config.js
           git commit -m 'Inject API Key at runtime' || echo "No changes to commit"
           git push
+
