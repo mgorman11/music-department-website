@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
     const sheetId = '1Y9CXKU_kDafCxBK8vjMYfA5h_U5vt9REuzHQXN2RRxQ';
     const sheetName = 'Sheet1';
-    const serviceAccountKey = window.SERVICE_ACCOUNT_KEY;
-    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${serviceAccountKey}`;
-
+    const accessToken = window.ACCESS_TOKEN;
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?access_token=${accessToken}`;
 
     // Load events from Google Sheets
     async function loadEvents() {
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
-            const rows = data.values.slice(1);
+            if (!data.values) {
+                console.error("No data found.");
+                return;
+            }
 
+            const rows = data.values.slice(1);
             const container = document.getElementById('upcoming-events');
             const today = new Date();
             container.innerHTML = '';
@@ -73,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
 
 
 
