@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const sheetId = '1Y9CXKU_kDafCxBK8vjMYfA5h_U5vt9REuzHQXN2RRxQ';
     const sheetName = 'Sheet1';
     const apiKey = window.API_KEY;
-    const apiUrl = `https://sheets.googleapis.com/v4/${sheetId}/values/${sheetName}?key=${apiKey}`;
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetName}?key=${apiKey}`;
 
     // Load events from Google Sheets
     async function loadEvents() {
