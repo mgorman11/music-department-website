@@ -1,8 +1,19 @@
-<script type="module">
-  import firebaseConfig from './js/config.js';
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Account Balance</title>
+    <link rel="stylesheet" href="css/account.css">
+    <script type="module" src="js/account.js"></script>
+</head>
+<body>
+  <h1>Check Your Student Account Balance</h1>
+  <form id="account-form">
+    <label for="account-id">Enter Your Student ID:</label>
+    <input type="text" id="account-id" required>
+    <button type="submit">Check Balance</button>
+  </form>
+  <p id="account-display"></p>
+</body>
+</html>
