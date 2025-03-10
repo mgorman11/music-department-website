@@ -10,28 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+    - name: Inject Firebase Config
+      run: |
+        mkdir -p dist/js
+        echo "const firebaseConfig = {" > dist/js/config.js
+        echo "  apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> dist/js/config.js
+        echo "  authDomain: '${{ secrets.FIREBASE_AUTH_DOMAIN }}'," >> dist/js/config.js
+        echo "  projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'," >> dist/js/config.js
+        echo "  storageBucket: '${{ secrets.FIREBASE_STORAGE_BUCKET }}'," >> dist/js/config.js
+        echo "  appId: '${{ secrets.FIREBASE_APP_ID }}'" >> dist/js/config.js
+        echo "}; export default firebaseConfig;" >> dist/js/config.js
 
-      - name: Build Site
-        run: |
-          cp -r * dist/
-          rm -rf dist/.github
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: dist
-          clean: true
-
-      - name: Inject API Key at Runtime
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-        run: |
-          echo "<script>window.API_KEY = '${{ secrets.API_KEY }}';</script>" >> dist/index.html
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: dist
