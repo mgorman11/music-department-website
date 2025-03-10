@@ -12,8 +12,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages
-        folder: . # Deploy everything without modifying files
+    - name: Inject Firebase Config
+      run: |
+        mkdir -p dist/js
+        echo "const firebaseConfig = {" > dist/js/config.js
+        echo "  apiKey: '${{ secrets.FIREBASE_API_KEY }}'," >> dist/js/config.js
+        echo " 
+
