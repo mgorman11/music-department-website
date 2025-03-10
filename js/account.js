@@ -6,20 +6,28 @@ import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Handle form submission
+// Handle form submission without page reload
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('balance-form').addEventListener('submit', async (e) => {
+    document.getElementById('account-form').addEventListener('submit', async (e) => {
         e.preventDefault();
-        const studentId = document.getElementById('student-id').value;
+
+        // Prevent URL query strings
+        const url = new URL(window.location);
+        url.search = '';
+        window.history.replaceState(null, '', url);
+
+        // Fetch account data
+        const studentId = document.getElementById('account-id').value;
         const docRef = doc(db, 'students', studentId);
         const docSnap = await getDoc(docRef);
 
+        // Display result
+        const display = document.getElementById('account-display');
         if (docSnap.exists()) {
             const data = docSnap.data();
-            document.getElementById('balance-display').innerText = 
-                `Name: ${data.name}\nBalance: $${data.balance.toFixed(2)}`;
+            display.innerText = `Name: ${data.name}\nBalance: $${data.balance.toFixed(2)}`;
         } else {
-            document.getElementById('balance-display').innerText = 'No account found for that ID.';
+            display.innerText = 'No account found for that ID.';
         }
     });
 });
